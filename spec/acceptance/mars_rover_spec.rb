@@ -1,5 +1,14 @@
 describe 'Mars Rover' do
   class InMemoryPositionGateway
+    attr_accessor :position
+
+    def retrieve
+      @position.dup
+    end
+
+    def save(position)
+      @position = position
+    end
   end
 
   class MotorGateway
@@ -9,6 +18,12 @@ describe 'Mars Rover' do
   let(:motor_gateway) { MotorGateway.new }
 
   it 'can move forward 1 unit' do
+    position_gateway.position = {
+      position_x: 0,
+      position_y: 0,
+      direction: :north
+    }
+
     command_gateways = {
       position_gateway: position_gateway,
       motor_gateway: motor_gateway,
