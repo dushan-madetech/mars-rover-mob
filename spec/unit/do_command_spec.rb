@@ -1,5 +1,5 @@
 describe DoCommand do
-  class PositionGatewaySpy
+  class PositionGatewayFake
     attr_accessor :position
 
     def retrieve
@@ -11,15 +11,16 @@ describe DoCommand do
     end
   end
 
+  let(:position_fake) { PositionGatewayFake.new }
+
   it 'can move the rover forward one when given the forward command' do
-    position_spy = PositionGatewaySpy.new
-    position_spy.position = {
+    position_fake.position = {
       position_x: 0,
       position_y: 0,
       direction: :north
     }
     command_gateways = {
-      position_gateway: position_spy,
+      position_gateway: position_fake,
       motor_gateway: nil,
       sensor_gateway: nil
     }
@@ -31,7 +32,7 @@ describe DoCommand do
       }
     )
 
-    expect(position_spy.position).to eq(
+    expect(position_fake.position).to eq(
       {
         position_x: 0,
         position_y: 1,
@@ -41,14 +42,13 @@ describe DoCommand do
   end
 
   it 'can move the rover forward two units when given two forward commands' do
-    position_spy = PositionGatewaySpy.new
-    position_spy.position = {
+    position_fake.position = {
       position_x: 0,
       position_y: 0,
       direction: :north
     }
     command_gateways = {
-      position_gateway: position_spy,
+      position_gateway: position_fake,
       motor_gateway: nil,
       sensor_gateway: nil
     }
@@ -60,7 +60,7 @@ describe DoCommand do
       }
     )
 
-    expect(position_spy.position).to eq(
+    expect(position_fake.position).to eq(
       {
         position_x: 0,
         position_y: 2,
@@ -70,14 +70,13 @@ describe DoCommand do
   end
 
   it 'can move the rover forward three units when given three forward commands' do
-    position_spy = PositionGatewaySpy.new
-    position_spy.position = {
+    position_fake.position = {
       position_x: 0,
       position_y: 0,
       direction: :north
     }
     command_gateways = {
-      position_gateway: position_spy,
+      position_gateway: position_fake,
       motor_gateway: nil,
       sensor_gateway: nil
     }
@@ -89,7 +88,7 @@ describe DoCommand do
       }
     )
 
-    expect(position_spy.position).to eq(
+    expect(position_fake.position).to eq(
       {
         position_x: 0,
         position_y: 3,
@@ -99,14 +98,13 @@ describe DoCommand do
   end
 
   it 'can move the rover forward from a different starting position' do
-    position_spy = PositionGatewaySpy.new
-    position_spy.position = {
+    position_fake.position = {
       position_x: 0,
       position_y: 1,
       direction: :north
     }
     command_gateways = {
-      position_gateway: position_spy,
+      position_gateway: position_fake,
       motor_gateway: nil,
       sensor_gateway: nil
     }
@@ -118,7 +116,7 @@ describe DoCommand do
       }
     )
 
-    expect(position_spy.position).to eq(
+    expect(position_fake.position).to eq(
       {
         position_x: 0,
         position_y: 2,
